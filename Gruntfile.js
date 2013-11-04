@@ -18,8 +18,11 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['Gruntfile.js', 'public/contactlist.js', 'app.js','views/**/*'],
+      files: ['Gruntfile.js', 'public/*', 'app.js','views/*'],
       tasks: ['jshint'],
+      options: {
+      livereload: true,
+      }
     }
   });
 
@@ -28,6 +31,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-phantomjs');
   grunt.loadNpmTasks('grunt-contrib-watch');
   
-  grunt.registerTask('default', ['jshint']); 
+  grunt.registerTask('default', ['jshint','watch']); 
   grunt.registerTask('gitCommit', ['jshint','githooks:all']);
 };

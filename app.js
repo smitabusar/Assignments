@@ -87,6 +87,10 @@ app.get("/contacts/:guid", function(req, res) {
   }
 });
 
+app.get("/addContact", function(req, res) {
+  res.render("addContact");
+});
+
 app.post("/contacts/:guid", function(req, res) {
   var guid = req.param("guid"),
       record = _.findWhere(db, {guid: guid});
@@ -94,13 +98,26 @@ app.post("/contacts/:guid", function(req, res) {
   if(record) {
     var formValues = _.pick(req.body, "firstName", "lastName", "nickname", "company", "email");
     _.extend(record, formValues);
-    if(record.nickname = "") {
+    if(record.nickname === "") {
       record.nickname = record.firstName;
     }
     res.redirect("/contacts");
   } else {
     res.send("Sorry, the guid " + guid + " doesn't exist in the DB.");
   }
+});
+
+function S4() {
+    return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
+}
+
+app.post("/addContact", function(req, res) {
+  var guid = (S4() + S4() + "-" + S4() + "-4" + S4().substr(0,3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
+  var formValues = _.pick(req.body, "firstName", "lastName", "nickname", "company", "email");
+  formValues.guid=guid;
+  db.push(formValues);
+  //res.send(formValues);
+  res.redirect("/contacts"); 
 });
 
 

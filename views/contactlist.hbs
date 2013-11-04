@@ -3,6 +3,9 @@
   <head>
     <title>Code Fellows Contact Manager</title>
 
+    <!--Bring in font awesome-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+
     <!-- Bring In jQuery -->
     <script src="/bower_components/jquery/jquery.js"></script>
 
@@ -17,11 +20,17 @@
     <script>
       $(document).ready(function() {
         makeContactRowClickable();
+        addNewContact();
+        showEmail();
       });
     </script>
   </head>
 
   <body>
+    <div class="header">
+      <h1>My Contacts <i class="fa fa-thumbs-o-up"></i></h1>
+      <span id="buttonAdd">Add a new contact</span>
+    </div>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -29,6 +38,7 @@
           <th>First Name</th>
           <th>Nickname</th>
           <th>Company</th>
+          
         </tr>
       <thead>
 
@@ -39,6 +49,7 @@
             <td>{{firstName}}</td>
             <td>{{nickname}}</td>
             <td>{{company}}</td>
+            <td class="hidden">{{email}}</td>
           </tr>
         {{/each}}
       </tbody>
